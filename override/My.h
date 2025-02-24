@@ -127,5 +127,13 @@ MyParameters createDefaultMyParameters();
 void CheckSpecificationPartWrapper(void);
 void CreateNodesWrapper(void);
 void Convert2FullMatrixWrapper(void);
+char *CopyWrapper(char *S);
+
+bool ReadParametersFromStruct(MyParameters *params);
+void MyReadProblemFromStruct(MyProblem *problem);
+
+void TestCall(void);
+
+bool MySolve(void);
 
 #endif

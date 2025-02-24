@@ -75,3 +75,7 @@ MyParameters createDefaultMyParameters() {
     };
     return params;
 }
+
+void TestCall(void) {
+    printff("!!!!\n");
+}

@@ -9,25 +9,25 @@
 #include "Genetic.h"
 #include "My.h"
 
-extern void _Reset1();
-extern void _Reset2();
-extern void _Reset3();
-extern void _Reset4();
-extern void _Reset5();
-extern void _Reset6();
-extern void _Reset7();
-extern void _Reset8();
+extern void _ResetGain();
+extern void _ResetDelaunay();
+extern void _ResetQuadrant();
+extern void _ResetGreedy();
+extern void _ResetCycles();
+extern void _ResetRandom();
+extern void _ResetSequence();
 
 bool ReadParametersFromStruct(MyParameters *params) 
 {
-    _Reset1();
-    _Reset2();
-    _Reset3();
-    _Reset4();
-    _Reset5();
-    _Reset6();
-    _Reset7();
-    _Reset8();
+    printff("ReadParametersFromStruct!\n");
+
+    _ResetGain();
+    _ResetDelaunay();
+    _ResetQuadrant();
+    _ResetGreedy();
+    _ResetCycles();
+    _ResetRandom();
+    _ResetSequence();
 
     if (params->AscentCandidates < 2) {
         return false;

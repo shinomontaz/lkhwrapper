@@ -2,7 +2,7 @@
 SRC_DIR = override
 LKH_DIR = lkh
 INCLUDE_DIR = $(LKH_DIR)/INCLUDE
-LIB_NAME = lkh_static_lib.a
+LIB_NAME = liblkh.a
 
 # Define source files
 C_SOURCES = $(wildcard $(SRC_DIR)/*.c)
@@ -32,7 +32,7 @@ $(LKH_DIR)/%.o: $(LKH_DIR)/%.c $(INCLUDE_DIR)/%.h
 # Create static library
 $(LIB_NAME): $(C_OBJECTS)
 	ar rcs $@ $(C_OBJECTS)
-	@$(RM) $(C_OBJECTS)
+#	@$(RM) $(C_OBJECTS)
 
 # Clean target
 clean:

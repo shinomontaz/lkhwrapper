@@ -9,6 +9,38 @@
 #include "Genetic.h"
 #include "My.h"
 
+static void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes);
+
+void MyReadProblemFromStruct(MyProblem *problem)
+{
+    printff("MyReadProblemFromStruct!\n");
+    int i, j, K;
+    char *Line, *Keyword;
+
+    FreeStructures();
+
+    FirstNode = 0;
+    WeightType = WeightFormat = ProblemType = -1;
+    CoordType = NO_COORDS;
+    Name = CopyWrapper("Unnamed");
+    Type = EdgeWeightType = EdgeWeightFormat = 0;
+    EdgeDataFormat = NodeCoordType = DisplayDataType = 0;
+    Distance = 0;
+    C = 0;
+    c = 0;
+
+    ProblemType = problem->ProblemType;
+    Dimension = problem->Dimension;
+    DimensionSaved = Dim = Dimension;
+    
+    Capacity = (int)problem->Capacity;
+
+    printff("MyReadProblemFromStruct: ProblemType: %d, Dimension:%d\n", ProblemType, Dimension);
+
+
+    MyRead_NODE_COORD_SECTION(problem->nodeCoords, problem->Dimension);
+}
+
 // Function to read node coordinates from a structure
 static void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes) {
     Node *N;
