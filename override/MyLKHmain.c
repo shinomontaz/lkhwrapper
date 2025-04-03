@@ -16,7 +16,7 @@ bool MySolve(void) {
         Recombination == CLARIST ? MergeWithTourCLARIST :
                                    MergeWithTourIPT;
 
-if (SubproblemSize > 0) {
+    if (SubproblemSize > 0) {
         if (DelaunayPartitioning)
             SolveDelaunaySubproblems();
         else if (KarpPartitioning)
@@ -34,19 +34,32 @@ if (SubproblemSize > 0) {
         return true;
     }
     AllocateStructures();
+
+    printff("structures allocated\n");
+
     if (ProblemType == TSPTW)
         TSPTW_Reduce();
     if (ProblemType == VRPB || ProblemType == VRPBTW)
         VRPB_Reduce();
     if (ProblemType == PDPTW)
         PDPTW_Reduce();
+
     CreateCandidateSet();
+
+    printff("candidate set created\n");
+
     InitializeStatistics();
+
+    printff("statistics initialized\n");
 
     if (Norm != 0 || Penalty) {
         Norm = 9999;
         BestCost = PLUS_INFINITY;
         BestPenalty = CurrentPenalty = PLUS_INFINITY;
+
+        printff("var 1\n");
+
+
     } else {
         /* The ascent has solved the problem! */
         Optimum = BestCost = (GainType) LowerBound;
@@ -58,6 +71,8 @@ if (SubproblemSize > 0) {
         WriteTour(OutputTourFileName, BestTour, BestCost);
         WriteTour(TourFileName, BestTour, BestCost);
         Runs = 0;
+
+        printff("var 2\n");
     }
 
     /* Find a specified number (Runs) of local optima */
@@ -175,6 +190,9 @@ if (SubproblemSize > 0) {
         }
         SRandom(++Seed);
     }
+
+    printff("main cycle finished\n");
+
     PrintStatistics();
     if (Salesmen > 1) {
         if (Dimension == DimensionSaved) {
@@ -197,6 +215,9 @@ if (SubproblemSize > 0) {
         MTSP_Report(BestPenalty, BestCost);
         MTSP_WriteSolution(MTSPSolutionFileName, BestPenalty, BestCost);
     }
+
+    printff("Best %s solution:\n", Type);
+
     SINTEF_WriteSolution(SINTEFSolutionFileName, BestCost);
     if (ProblemType == ACVRP ||
         ProblemType == BWTSP ||

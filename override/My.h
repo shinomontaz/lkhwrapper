@@ -131,6 +131,7 @@ char *CopyWrapper(char *S);
 
 bool ReadParametersFromStruct(MyParameters *params);
 void MyReadProblemFromStruct(MyProblem *problem);
+void MyAdjustParameters(void);
 
 void TestCall(void);
 

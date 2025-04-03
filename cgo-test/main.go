@@ -14,6 +14,7 @@ import "unsafe"
 func main() {
 	params := C.createDefaultMyParameters()
 	params.Runs = 1
+	params.TraceLevel = 3
 
 	var problem C.MyProblem
 	problem.ProblemType = C.TSP

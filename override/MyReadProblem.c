@@ -10,6 +10,7 @@
 #include "My.h"
 
 static void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes);
+static void MyRead_EDGE_WEIGHT_TYPE(enum EdgeWeightTypes ewt);
 
 void MyReadProblemFromStruct(MyProblem *problem)
 {
@@ -35,14 +36,19 @@ void MyReadProblemFromStruct(MyProblem *problem)
     
     Capacity = (int)problem->Capacity;
 
-    printff("MyReadProblemFromStruct: ProblemType: %d, Dimension:%d\n", ProblemType, Dimension);
-
-
+    printff("MyReadProblemFromStruct: ProblemType 1: %d, Dimension:%d\n", ProblemType, Dimension);
+    
+    MyRead_EDGE_WEIGHT_TYPE(problem->EdgeWeightType);
     MyRead_NODE_COORD_SECTION(problem->nodeCoords, problem->Dimension);
+
+    MyAdjustParameters();
 }
 
 // Function to read node coordinates from a structure
-static void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes) {
+void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes) {
+
+    printff("MyRead_NODE_COORD_SECTION\n");
+
     Node *N;
     int Id, i;
 
@@ -93,4 +99,133 @@ static void MyRead_NODE_COORD_SECTION(NodeCoord *nodeCoords, int numNodes) {
         Dimension++;
     if (Asymmetric)
         Convert2FullMatrixWrapper();
+}
+
+void MyRead_EDGE_WEIGHT_TYPE(enum EdgeWeightTypes ewt) {
+    printff("MyRead_EDGE_WEIGHT_TYPE: EdgeWeightTypes %d\n", ewt);
+    switch (ewt) {
+        case ATT:
+            WeightType = ATT;
+            Distance = Distance_ATT;
+            c = c_ATT;
+            CoordType = TWOD_COORDS;
+            break;
+        case CEIL_2D:
+            WeightType = CEIL_2D;
+            Distance = Distance_CEIL_2D;
+            c = c_CEIL_2D;
+            CoordType = TWOD_COORDS;
+            break;
+        case CEIL_3D:
+            WeightType = CEIL_3D;
+            Distance = Distance_CEIL_3D;
+            c = c_CEIL_3D;
+            CoordType = THREED_COORDS;
+            break;
+        case EUC_2D:
+            WeightType = EUC_2D;
+            Distance = Distance_EUC_2D;
+            c = c_EUC_2D;
+            CoordType = TWOD_COORDS;
+            if (Scale == -1)
+                Scale = 1000;
+            break;
+        case EUC_3D:
+            WeightType = EUC_3D;
+            Distance = Distance_EUC_3D;
+            c = c_EUC_3D;
+            CoordType = THREED_COORDS;
+            if (Scale == -1)
+                Scale = 1000;
+            break;
+        case EXPLICIT:
+            WeightType = EXPLICIT;
+            Distance = Distance_EXPLICIT;
+            if (Scale < 1)
+                Scale = 1;
+            break;
+        case FLOOR_2D:
+            WeightType = FLOOR_2D;
+            Distance = Distance_FLOOR_2D;
+            c = c_FLOOR_2D;
+            CoordType = TWOD_COORDS;
+            break;
+        case FLOOR_3D:
+            WeightType = FLOOR_3D;
+            Distance = Distance_FLOOR_3D;
+            c = c_FLOOR_3D;
+            CoordType = THREED_COORDS;
+            break;
+        case MAN_2D:
+            WeightType = MAN_2D;
+            Distance = Distance_MAN_2D;
+            CoordType = TWOD_COORDS;
+            break;
+        case MAN_3D:
+            WeightType = MAN_3D;
+            Distance = Distance_MAN_3D;
+            CoordType = THREED_COORDS;
+            break;
+        case MAX_2D:
+            WeightType = MAX_2D;
+            Distance = Distance_MAX_2D;
+            CoordType = TWOD_COORDS;
+            break;
+        case MAX_3D:
+            WeightType = MAX_3D;
+            Distance = Distance_MAX_3D;
+            CoordType = THREED_COORDS;
+            break;
+        case GEO:
+            WeightType = GEO;
+            Distance = Distance_GEO;
+            c = c_GEO;
+            CoordType = TWOD_COORDS;
+            break;
+        case GEOM:
+            WeightType = GEOM;
+            Distance = Distance_GEOM;
+            c = c_GEOM;
+            CoordType = TWOD_COORDS;
+            break;
+        case GEO_MEEUS:
+            WeightType = GEO_MEEUS;
+            Distance = Distance_GEO_MEEUS;
+            c = c_GEO_MEEUS;
+            CoordType = TWOD_COORDS;
+            break;
+        case GEOM_MEEUS:
+            WeightType = GEOM_MEEUS;
+            Distance = Distance_GEOM_MEEUS;
+            c = c_GEOM_MEEUS;
+            CoordType = TWOD_COORDS;
+            break;
+        case TOR_2D:
+            WeightType = TOR_2D;
+            Distance = Distance_TOR_2D;
+            CoordType = TWOD_COORDS;
+            break;
+        case TOR_3D:
+            WeightType = TOR_3D;
+            Distance = Distance_TOR_3D;
+            CoordType = THREED_COORDS;
+            break;
+        case XRAY1:
+            WeightType = XRAY1;
+            Distance = Distance_XRAY1;
+            CoordType = THREED_COORDS;
+            break;
+        case XRAY2:
+            WeightType = XRAY2;
+            Distance = Distance_XRAY2;
+            CoordType = THREED_COORDS;
+            break;
+        case SPECIAL:
+            WeightType = SPECIAL;
+            Distance = Distance_SPECIAL;
+            break;
+        default:
+            eprintf("Unknown EDGE_WEIGHT_TYPE: %d", ewt);
+            break;
+    }
 }

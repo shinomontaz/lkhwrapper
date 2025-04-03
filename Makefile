@@ -36,7 +36,7 @@ $(LIB_NAME): $(C_OBJECTS)
 
 # Clean target
 clean:
-	$(RM) $(LKH_DIR)/*.o $(LIB_NAME)
+	$(RM) $(LKH_DIR)\*.o $(LIB_NAME)
 
 # Phony targets
 .PHONY: all clean
