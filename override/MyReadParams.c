@@ -33,6 +33,8 @@ bool ReadParametersFromStruct(MyParameters *params)
         return false;
     }
 
+    OutputTourFileName = TourFileName = 0;
+
     AscentCandidates = params->AscentCandidates;
     BackboneTrials = params->BackboneTrials;
     Backtracking = params->Backtracking;
@@ -143,6 +145,8 @@ bool ReadParametersFromStruct(MyParameters *params)
     } else if (params->SubproblemSpecial2 == SPECIALSUBPROBLEM_COMPRESSED) {
         SubproblemsCompressed = 1;
     }
+
+    TourFileName = params->TourFileName;
 
     // if (!ProblemFileName)
     //     eprintf("Problem file name is missing");

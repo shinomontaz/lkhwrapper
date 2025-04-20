@@ -13,8 +13,9 @@ import "unsafe"
 
 func main() {
 	params := C.createDefaultMyParameters()
-	params.Runs = 1
-	params.TraceLevel = 3
+	params.Runs = 2
+	params.TraceLevel = 0
+	params.TourFileName = C.CString("test.tour")
 
 	var problem C.MyProblem
 	problem.ProblemType = C.TSP

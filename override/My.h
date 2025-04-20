@@ -102,6 +102,7 @@ typedef struct MyParameters {
     double TimeLimit;
     double TotalTimeLimit;
     int TraceLevel;
+    char *TourFileName; // for test!
 } MyParameters;
 
 typedef struct {
